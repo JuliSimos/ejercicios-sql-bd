@@ -3,7 +3,7 @@
 > **Objetivo:** Modelar un repositorio de archivos digitales (audios, videos y documentos) agrupados por temática en colecciones.
 
 ### Implementación de tablas
-* [Script de Creación de Tablas DDL]()
+* [Script de Creación de Tablas DDL](/02-modelo-fisico/ejercicio_1/1_1/codigo_SQL/Tp3_Ej_1_1_create.sql)
 
 #### Script de Borrado (DROP TABLE)
 
