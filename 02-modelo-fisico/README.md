@@ -1,6 +1,6 @@
 ### Ejercicio 1
 a. Creen las tablas que lo representan.   
-- [Script de Creación de Tablas DDL](./02-modelo-fisico%20(tablas)/Tp3_Ej_1.1_create.sql) 
+- [Script de Creación de Tablas DDL](/02-modelo-fisico/Tp3_Ej_1_create.sql)
   
 b. Realice el borrado de las tablas al inicio del script.
 ```
