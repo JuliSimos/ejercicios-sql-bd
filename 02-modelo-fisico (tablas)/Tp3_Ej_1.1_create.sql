@@ -1,5 +1,5 @@
 -- Created by Redgate Data Modeler (https://datamodeler.redgate-platform.com)
--- Last modification date: 2025-12-12 04:08:19.46
+-- Last modification date: 2025-12-12 04:36:22.566
 
 -- tables
 -- Table: AUDIO
@@ -14,7 +14,7 @@ CREATE TABLE AUDIO (
 -- Table: COLECCION
 CREATE TABLE COLECCION (
     id_coleccion serial  NOT NULL,
-    titulo_coneccion varchar(60)  NOT NULL,
+    titulo_coleccion varchar(60)  NOT NULL,
     descripcion varchar(160)  NOT NULL,
     CONSTRAINT COLECCION_pk PRIMARY KEY (id_coleccion)
 );
