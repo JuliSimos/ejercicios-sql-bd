@@ -100,6 +100,8 @@ A partir del enunciado, se identifican los siguientes elementos del modelo:
 
 ###  Modelo físico
 
-<img width="930" height="540" alt="image" src="https://github.com/user-attachments/assets/813b29e0-aa17-4719-a5da-df22c91aebb2" />
+<img width="1134" height="492" alt="image" src="https://github.com/user-attachments/assets/f5ddbfce-3f6e-4f63-8cdc-d211e6c0d441" />
+
 
 ---
+
