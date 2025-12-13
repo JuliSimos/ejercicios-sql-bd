@@ -1,0 +1,133 @@
+-- Created by Redgate Data Modeler (https://datamodeler.redgate-platform.com)
+-- Last modification date: 2025-12-13 00:00:02.175
+
+-- tables
+-- Table: TELEFONO_INVESTIGADOR
+CREATE TABLE TELEFONO_INVESTIGADOR (
+    id_investigador int  NOT NULL,
+    telefono varchar(15)  NOT NULL,
+    CONSTRAINT TELEFONO_INVESTIGADOR_pk PRIMARY KEY (id_investigador)
+);
+
+-- Table: TP03_EJ04_DISCIPLINA
+CREATE TABLE TP03_EJ04_DISCIPLINA (
+    id_disciplina int  NOT NULL,
+    nombre_disciplina varchar(20)  NOT NULL,
+    descripcion_disciplina varchar(120)  NOT NULL,
+    CONSTRAINT TP03_EJ04_DISCIPLINA_pk PRIMARY KEY (id_disciplina)
+);
+
+-- Table: TP03_EJ04_INVESTIGADOR
+CREATE TABLE TP03_EJ04_INVESTIGADOR (
+    id_investigador serial  NOT NULL,
+    tipo_doc char(3)  NOT NULL,
+    nro_doc int  NOT NULL,
+    nombre varchar(40)  NOT NULL,
+    apellido varchar(40)  NOT NULL,
+    direccion varchar(40)  NOT NULL,
+    fecha_nac date  NOT NULL,
+    id_disciplina int  NOT NULL,
+    CONSTRAINT ak_investigador UNIQUE (tipo_doc, nro_doc) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT TP03_EJ04_INVESTIGADOR_pk PRIMARY KEY (id_investigador)
+);
+
+-- Table: TP03_EJ04_PROYECTO
+CREATE TABLE TP03_EJ04_PROYECTO (
+    cod_proyecto int  NOT NULL,
+    nombre_proyecto varchar(40)  NOT NULL,
+    monto decimal(10,2)  NOT NULL,
+    estadio char(3)  NOT NULL,
+    tipo_proy char(1)  NOT NULL,
+    CONSTRAINT TP03_EJ04_PROYECTO_pk PRIMARY KEY (cod_proyecto)
+);
+
+-- Table: TP03_EJ04_PROY_APROB_RECHAZ
+CREATE TABLE TP03_EJ04_PROY_APROB_RECHAZ (
+    cod_proyecto int  NOT NULL,
+    CONSTRAINT TP03_EJ04_PROY_APROB_RECHAZ_pk PRIMARY KEY (cod_proyecto)
+);
+
+-- Table: TP03_EJ04_PROY_INIC_FINAL
+CREATE TABLE TP03_EJ04_PROY_INIC_FINAL (
+    cod_proyecto int  NOT NULL,
+    fecha_inicio date  NOT NULL,
+    fecha_fin date  NULL,
+    id_investigador int  NOT NULL,
+    CONSTRAINT TP03_EJ04_PROY_INIC_FINAL_pk PRIMARY KEY (cod_proyecto)
+);
+
+-- Table: TP03_EJ04_TAREA
+CREATE TABLE TP03_EJ04_TAREA (
+    id_tarea int  NOT NULL,
+    nombre_tarea varchar(15)  NOT NULL,
+    cant_horas decimal(6,2)  NOT NULL,
+    CONSTRAINT ak_tarea UNIQUE (nombre_tarea) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT TP03_EJ04_TAREA_pk PRIMARY KEY (id_tarea)
+);
+
+-- Table: realiza
+CREATE TABLE realiza (
+    id_investigador int  NOT NULL,
+    id_tarea int  NOT NULL,
+    CONSTRAINT realiza_pk PRIMARY KEY (id_investigador,id_tarea)
+);
+
+-- foreign keys
+-- Reference: TELEFONO_INVESTIGADOR_TP03_EJ04_INVESTIGADOR (table: TELEFONO_INVESTIGADOR)
+ALTER TABLE TELEFONO_INVESTIGADOR ADD CONSTRAINT TELEFONO_INVESTIGADOR_TP03_EJ04_INVESTIGADOR
+    FOREIGN KEY (id_investigador)
+    REFERENCES TP03_EJ04_INVESTIGADOR (id_investigador)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: TP03_EJ04_INVESTIGADOR_TP03_EJ04_DISCIPLINA (table: TP03_EJ04_INVESTIGADOR)
+ALTER TABLE TP03_EJ04_INVESTIGADOR ADD CONSTRAINT TP03_EJ04_INVESTIGADOR_TP03_EJ04_DISCIPLINA
+    FOREIGN KEY (id_disciplina)
+    REFERENCES TP03_EJ04_DISCIPLINA (id_disciplina)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: TP03_EJ04_PROY_APROB_RECHAZ_TP03_EJ04_PROYECTO (table: TP03_EJ04_PROY_APROB_RECHAZ)
+ALTER TABLE TP03_EJ04_PROY_APROB_RECHAZ ADD CONSTRAINT TP03_EJ04_PROY_APROB_RECHAZ_TP03_EJ04_PROYECTO
+    FOREIGN KEY (cod_proyecto)
+    REFERENCES TP03_EJ04_PROYECTO (cod_proyecto)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: TP03_EJ04_PROY_INIC_FINAL_TP03_EJ04_INVESTIGADOR (table: TP03_EJ04_PROY_INIC_FINAL)
+ALTER TABLE TP03_EJ04_PROY_INIC_FINAL ADD CONSTRAINT TP03_EJ04_PROY_INIC_FINAL_TP03_EJ04_INVESTIGADOR
+    FOREIGN KEY (id_investigador)
+    REFERENCES TP03_EJ04_INVESTIGADOR (id_investigador)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: TP03_EJ04_PROY_INIC_FINAL_TP03_EJ04_PROYECTO (table: TP03_EJ04_PROY_INIC_FINAL)
+ALTER TABLE TP03_EJ04_PROY_INIC_FINAL ADD CONSTRAINT TP03_EJ04_PROY_INIC_FINAL_TP03_EJ04_PROYECTO
+    FOREIGN KEY (cod_proyecto)
+    REFERENCES TP03_EJ04_PROYECTO (cod_proyecto)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: realiza_TP03_EJ04_INVESTIGADOR (table: realiza)
+ALTER TABLE realiza ADD CONSTRAINT realiza_TP03_EJ04_INVESTIGADOR
+    FOREIGN KEY (id_investigador)
+    REFERENCES TP03_EJ04_INVESTIGADOR (id_investigador)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: realiza_TP03_EJ04_TAREA (table: realiza)
+ALTER TABLE realiza ADD CONSTRAINT realiza_TP03_EJ04_TAREA
+    FOREIGN KEY (id_tarea)
+    REFERENCES TP03_EJ04_TAREA (id_tarea)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- End of file.
+
