@@ -78,5 +78,7 @@ A partir del enunciado se identifican las siguientes entidades y relaciones:
 
 ## Modelo físico
 
-<img width="898" height="657" alt="image" src="https://github.com/user-attachments/assets/2e538b86-0c23-4066-b1c2-7124c961f9e4" />
+<img width="932" height="688" alt="image" src="https://github.com/user-attachments/assets/66ec5c07-50cf-4cb6-b922-c44fae559238" />
+
+
 
