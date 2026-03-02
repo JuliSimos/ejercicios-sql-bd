@@ -32,7 +32,7 @@ Puntos clave del diseño:
 
 - **Destino de Envíos:** Se vinculó Paquete con Ciudad mediante una relación de obligatoriedad, donde un paquete llega a una única ciudad de destino, pero una ciudad puede recibir múltiples paquetes a lo largo del tiempo.
   
-<img width="818" height="283" alt="image" src="https://github.com/user-attachments/assets/38ab8d98-f8b5-4f98-8dd2-b52756875624" />
+<img width="787" height="323" alt="image" src="https://github.com/user-attachments/assets/b13f66a9-30c6-443b-8897-d2e6baa7b94d" />
 
 ### Ej 4:
 <img width="666" height="463" alt="image" src="https://github.com/user-attachments/assets/a1ddb3c9-8974-4615-ba8a-0a244cc79a94" />
