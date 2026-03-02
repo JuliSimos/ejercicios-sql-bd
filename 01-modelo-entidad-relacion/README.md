@@ -1,10 +1,22 @@
 # Ejercicios resueltos del practico modelado de datos
 
-### Ej 1:
-<img width="623" height="351" alt="image" src="https://github.com/user-attachments/assets/75861d27-5160-4c3f-a550-57b347c2590c" />
+### Ejercicio 1: Sistema de Facturación y Clientes
+  a. Analice si su modelo es capaz de respetar el precio de venta de cada producto cuando se modifica el precio de un producto.
+  
+  b. Proponga una solución para el DERE al problema
 
-### Ej 2:
-<img width="723" height="372" alt="image" src="https://github.com/user-attachments/assets/31fc6b6b-0336-429f-b183-51dbf8be0f2a" />
+  - Para evitar que el precio de una venta cambie cuando el producto se actualiza en el futuro, se define la relación "Contiene" entre Factura y Producto como una relación muchos a muchos. Al agregar los atributos cantidad y precio_unitario directamente en esta relación, el precio queda 'congelado' en la instancia de la factura, independientemente de los cambios posteriores en la tabla de Producto
+
+<img width="649" height="376" alt="image" src="https://github.com/user-attachments/assets/f8bc8244-0d7b-4d14-88d3-3bca8bc15429" />
+
+### Ejercicio 2: Gestión de Depósito y Departamentos
+- **Jerarquía de Empleados:** Se implementó una especialización disjunta (d) para separar a los empleados en las categorías JEFE y NO_JEFE. Esto permite asegurar que cada departamento tenga un único jefe asignado, cumpliendo con la restricción de que un empleado solo puede liderar un sector a la vez.
+
+- **Identificación de Productos:** El producto se definió como una entidad débil. Su identidad completa se construye combinando el número asignado por el fabricante con el código del almacén, reflejando la dependencia de existencia respecto al fabricante.
+
+- **Restricción de Ventas:** Para respetar la anotación de que cada producto se vende en un único departamento, se estableció una cardinalidad (1,1) desde el lado del Producto hacia la relación de venta con el Departamento.
+  
+<img width="749" height="475" alt="image" src="https://github.com/user-attachments/assets/c96c738d-1457-4641-b1ba-04938ed08ccf" />
 
 ### Ej 3:
 <img width="818" height="283" alt="image" src="https://github.com/user-attachments/assets/38ab8d98-f8b5-4f98-8dd2-b52756875624" />
