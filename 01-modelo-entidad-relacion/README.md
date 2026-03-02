@@ -4,12 +4,16 @@
   a. Analice si su modelo es capaz de respetar el precio de venta de cada producto cuando se modifica el precio de un producto.
   
   b. Proponga una solución para el DERE al problema
-
+  
+Puntos clave del diseño:
   - Para evitar que el precio de una venta cambie cuando el producto se actualiza en el futuro, se define la relación "Contiene" entre Factura y Producto como una relación muchos a muchos. Al agregar los atributos cantidad y precio_unitario directamente en esta relación, el precio queda 'congelado' en la instancia de la factura, independientemente de los cambios posteriores en la tabla de Producto
 
 <img width="649" height="376" alt="image" src="https://github.com/user-attachments/assets/f8bc8244-0d7b-4d14-88d3-3bca8bc15429" />
 
 ### Ejercicio 2: Gestión de Depósito y Departamentos
+
+Puntos clave del diseño:
+
 - **Jerarquía de Empleados:** Se implementó una especialización disjunta (d) para separar a los empleados en las categorías JEFE y NO_JEFE. Esto permite asegurar que cada departamento tenga un único jefe asignado, cumpliendo con la restricción de que un empleado solo puede liderar un sector a la vez.
 
 - **Identificación de Productos:** El producto se definió como una entidad débil. Su identidad completa se construye combinando el número asignado por el fabricante con el código del almacén, reflejando la dependencia de existencia respecto al fabricante.
@@ -18,7 +22,16 @@
   
 <img width="749" height="475" alt="image" src="https://github.com/user-attachments/assets/c96c738d-1457-4641-b1ba-04938ed08ccf" />
 
-### Ej 3:
+### Ejercicio 3: Sistema de Distribución de Paquetes
+
+Puntos clave del diseño:
+
+- **Relación Histórica (N:N):** Para cumplir con el requisito de que un camionero conduce diferentes camiones en fechas distintas, se estableció una relación muchos a muchos entre Camionero y Camión. Se incluyeron los atributos fecha_inicio y fecha_fin en la relación para mantener el registro histórico de quién condujo qué vehículo.
+
+- **Trazabilidad de Paquetes:** La relación entre Camionero y Paquete se definió como (1,1) del lado del paquete, asegurando que cada envío tenga un único responsable asignado para su distribución.
+
+- **Destino de Envíos:** Se vinculó Paquete con Ciudad mediante una relación de obligatoriedad, donde un paquete llega a una única ciudad de destino, pero una ciudad puede recibir múltiples paquetes a lo largo del tiempo.
+  
 <img width="818" height="283" alt="image" src="https://github.com/user-attachments/assets/38ab8d98-f8b5-4f98-8dd2-b52756875624" />
 
 ### Ej 4:
