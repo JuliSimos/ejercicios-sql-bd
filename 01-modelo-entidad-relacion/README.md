@@ -1,5 +1,24 @@
 # Ejercicios resueltos del practico modelado de datos
 
+<details>
+  <summary><b>Guía de Lectura: Cardinalidades </b></summary>
+  
+  *Para la correcta interpretación de los diseños, se utiliza la convención de __"mirar al frente"__*:
+
+* **Lógica de lectura:** La cardinalidad que define a una entidad se encuentra anotada en el extremo opuesto de la relación.
+  
+* **Interpretación de los valores:**
+    * **(0, N):** **Opcionalidad.** La entidad puede relacionarse con muchos ejemplares o ninguno.
+    * **(1, 1):** **Obligatoriedad única.** La entidad debe relacionarse con exactamente un ejemplar.
+    * **(1, N):** **Obligatoriedad múltiple.** La entidad debe relacionarse con al menos uno o varios ejemplares.
+
+> **Ejemplo:** Si en la relación entre `Paquete` y `Ciudad`, el valor **(1,1)** está junto a `Ciudad`, significa que "El paquete llega a **una sola** ciudad".
+
+</details>
+
+---
+
+
 ### Ejercicio 1: Sistema de Facturación y Clientes
   a. Analice si su modelo es capaz de respetar el precio de venta de cada producto cuando se modifica el precio de un producto.
   
@@ -32,7 +51,8 @@ Puntos clave del diseño:
 
 - **Destino de Envíos:** Se vinculó Paquete con Ciudad mediante una relación de obligatoriedad, donde un paquete llega a una única ciudad de destino, pero una ciudad puede recibir múltiples paquetes a lo largo del tiempo.
   
-<img width="787" height="323" alt="image" src="https://github.com/user-attachments/assets/b13f66a9-30c6-443b-8897-d2e6baa7b94d" />
+<img width="753" height="299" alt="image" src="https://github.com/user-attachments/assets/b138c6a0-283c-4939-9b1f-e2a828e591ca" />
+
 
 ### Ej 4:
 <img width="666" height="463" alt="image" src="https://github.com/user-attachments/assets/a1ddb3c9-8974-4615-ba8a-0a244cc79a94" />
