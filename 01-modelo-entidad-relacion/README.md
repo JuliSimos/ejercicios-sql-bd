@@ -54,8 +54,17 @@ Puntos clave del diseño:
 <img width="753" height="299" alt="image" src="https://github.com/user-attachments/assets/b138c6a0-283c-4939-9b1f-e2a828e591ca" />
 
 
-### Ej 4:
-<img width="666" height="463" alt="image" src="https://github.com/user-attachments/assets/a1ddb3c9-8974-4615-ba8a-0a244cc79a94" />
+### Ejercicio 4: Sistema de Control de Niños Refugiados
+Puntos clave del diseño:
+
+- **Gestión de Contactos y Cuidado:** Se estableció una relación de obligatoriedad múltiple (1,N) entre Infante y Cuidador. Esto permite que cada niño cuente con uno o más responsables asignados dentro de la institución, cumpliendo con el requisito de identificar a sus cuidadores y contactos.
+
+- **Atributos Multivaluados y Compuestos:** Para los datos sanitarios y filiatorios, se utilizaron atributos multivaluados (como enfermedades y parientes). Esto permite registrar un historial médico completo y múltiples vínculos familiares sin generar redundancia en la entidad principal.
+
+- **Localización Institucional:** La relación entre Infante e Institución se definió como (1,1) desde la perspectiva del niño. Esto asegura que cada menor esté vinculado obligatoriamente a una única sede, la cual contiene la información jerárquica de su ubicación geográfica (país, región y ciudad).
+
+- **Trazabilidad de Retorno:** Se incluyó el atributo fecha_retorno en la entidad Infante con carácter opcional. Esto permite registrar el reencuentro familiar en los casos donde se concrete, manteniendo el campo como nulo mientras el niño permanezca bajo el cuidado de la organización.
+<img width="687" height="452" alt="image" src="https://github.com/user-attachments/assets/5713ceba-bd1f-487f-8bb2-9f4a6a9622aa" />
 
 ### Ej 5:
 <img width="930" height="540" alt="image" src="https://github.com/user-attachments/assets/b1c03f54-bc09-4591-8bb9-575c5d2e7a3d" />
