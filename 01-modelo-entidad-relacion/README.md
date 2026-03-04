@@ -66,7 +66,17 @@ Puntos clave del diseño:
 - **Trazabilidad de Retorno:** Se incluyó el atributo fecha_retorno en la entidad Infante con carácter opcional. Esto permite registrar el reencuentro familiar en los casos donde se concrete, manteniendo el campo como nulo mientras el niño permanezca bajo el cuidado de la organización.
 <img width="687" height="452" alt="image" src="https://github.com/user-attachments/assets/5713ceba-bd1f-487f-8bb2-9f4a6a9622aa" />
 
-### Ej 5:
+### Ejercicio 5: Sistema de Gestión de Biblioteca y Préstamos
+Puntos clave del diseño:
+
+- **Modelado de Ejemplares (Entidad Débil):** Se diferenció la entidad LIBRO (información bibliográfica) de COPIA_LIBRO (ejemplar físico). Esta última se definió como una entidad débil, ya que su identificación depende del ISBN del libro original, permitiendo gestionar el stock y la ubicación en estantería de forma individualizada.
+
+- **Gestión de Préstamos y Empleados:** Se implementó una relación ternaria o vinculada entre LECTOR, PRESTAMO y EMPLEADO para asegurar la trazabilidad de cada transacción, registrando no solo quién se lleva el libro, sino también qué funcionario autorizó la operación y en qué fechas.
+
+- **Sistema de Reservas:** Se incorporó la entidad RESERVA para gestionar la demanda de libros no disponibles. Se vinculó directamente con el LECTOR y el LIBRO mediante relaciones de opcionalidad (0,N), permitiendo un seguimiento del estado de la solicitud (pendiente, cancelada o completada).
+
+- **Categorización Muchos a Muchos:** Para cumplir con el requisito de que un libro puede pertenecer a múltiples géneros (Novela, Historia, etc.), se estableció una relación (N:N) con la entidad CATEGORIA, facilitando la clasificación y búsqueda avanzada en el catálogo.
+  
 <img width="930" height="540" alt="image" src="https://github.com/user-attachments/assets/b1c03f54-bc09-4591-8bb9-575c5d2e7a3d" />
 
 ### Ej 6:
