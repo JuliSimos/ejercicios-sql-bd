@@ -79,5 +79,15 @@ Puntos clave del diseño:
   
 <img width="930" height="540" alt="image" src="https://github.com/user-attachments/assets/b1c03f54-bc09-4591-8bb9-575c5d2e7a3d" />
 
-### Ej 6:
-<img width="662" height="519" alt="image" src="https://github.com/user-attachments/assets/2f4944c9-3f43-4091-904b-20c7fb70d405" />
+### Ejercicio 6: Gestión de Startup de Consultoría Tecnológica
+Puntos clave del diseño:
+
+- **Estructura de Equipos y Proyectos:** Se estableció una distinción entre la pertenencia a un EQUIPO y la participación operativa en un PROYECTO. Esto permite registrar a un empleado en su unidad administrativa mientras colabora en múltiples proyectos simultáneamente.
+
+- **Roles de Liderazgo:** La relación lidera cuenta con una cardinalidad (0,1) desde la perspectiva del empleado. Esto indica que un trabajador puede no tener personal a cargo o, como máximo, ser el líder de un único equipo.
+
+- **Flexibilidad de Clientes:** La vinculación con la entidad CLIENTE es de carácter opcional (0,1). Esta configuración permite al sistema gestionar tanto desarrollos para terceros como productos digitales propios de la startup.
+
+- **Ciclo de Vida y Evaluaciones:** Se definió una relación de opcionalidad (0,N) para las evaluaciones de fase. Esto posibilita el registro de proyectos nuevos que aún no han sido auditados, permitiendo que los controles se sumen de forma incremental conforme avance el desarrollo.
+
+<img width="731" height="560" alt="image" src="https://github.com/user-attachments/assets/6e7835f7-c360-4a36-808f-6a1d92dcb5e8" />
