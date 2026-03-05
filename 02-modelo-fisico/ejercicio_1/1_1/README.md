@@ -25,7 +25,8 @@
 
 ## Diagrama Fisico
 
-<img width="813" height="464" alt="image" src="https://github.com/user-attachments/assets/a86fbe07-58cb-49de-bfc7-1613df0839ec" />
+<img width="816" height="581" alt="image" src="https://github.com/user-attachments/assets/afe58161-815d-45d6-93b1-3030d86d29c2" />
+
 
 
 ---
