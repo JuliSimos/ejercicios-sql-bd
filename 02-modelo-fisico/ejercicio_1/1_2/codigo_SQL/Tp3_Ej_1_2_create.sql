@@ -1,5 +1,5 @@
 -- Created by Redgate Data Modeler (https://datamodeler.redgate-platform.com)
--- Last modification date: 2026-03-06 03:23:17.381
+-- Last modification date: 2026-03-06 03:55:00.98
 
 -- tables
 -- Table: Autor
@@ -28,7 +28,7 @@ CREATE TABLE Con_carnet (
 -- Table: Ejemplar_libro
 CREATE TABLE Ejemplar_libro (
     cod_catalogo int  NOT NULL,
-    nro_ejemplar serial  NOT NULL,
+    nro_ejemplar int  NOT NULL,
     anio_edicion int  NOT NULL,
     nro_edicion int  NOT NULL,
     CONSTRAINT Ejemplar_libro_pk PRIMARY KEY (nro_ejemplar,cod_catalogo)
@@ -37,9 +37,9 @@ CREATE TABLE Ejemplar_libro (
 -- Table: Prestamo
 CREATE TABLE Prestamo (
     id_prestamo int  NOT NULL,
+    id_usuario int  NOT NULL,
     fecha_desde int  NOT NULL,
     fecha_hasta int  NOT NULL,
-    id_usuario int  NOT NULL,
     CONSTRAINT Prestamo_pk PRIMARY KEY (id_prestamo)
 );
 
@@ -67,7 +67,7 @@ CREATE TABLE prestamo_libro (
     id_prestamo int  NOT NULL,
     nro_ejemplar int  NOT NULL,
     cod_catalogo int  NOT NULL,
-    CONSTRAINT prestamo_libro_pk PRIMARY KEY (id_prestamo)
+    CONSTRAINT prestamo_libro_pk PRIMARY KEY (id_prestamo,nro_ejemplar,cod_catalogo)
 );
 
 -- foreign keys
