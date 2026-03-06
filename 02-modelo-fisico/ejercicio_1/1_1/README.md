@@ -27,7 +27,13 @@
 
 <img width="816" height="581" alt="image" src="https://github.com/user-attachments/assets/afe58161-815d-45d6-93b1-3030d86d29c2" />
 
+#### Notas de diseño
 
+- **Manejo de categorías:** Para los diferentes tipos de archivos (Audio, Video, Documento), se creó una tabla para cada uno. Todas comparten la misma clave para que los datos estén siempre conectados de forma segura.
+
+- **Relación de dependencia:** La tabla Objeto depende directamente de Coleccion. Por eso, para identificar un objeto, usamos tanto su propio ID como el de la colección a la que pertenece.
+
+- **Orden de datos:** Se incluyó un campo "tipo" en la tabla principal para saber rápidamente qué clase de archivo es cada registro sin tener que buscar en todas las tablas.
 
 ---
 
