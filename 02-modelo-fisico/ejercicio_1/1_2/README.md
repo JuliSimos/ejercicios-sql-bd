@@ -32,8 +32,7 @@ DROP TABLE IF EXISTS Catalogo_libro;
 
 ## Diagrama Fisico
 
-<img width="832" height="429" alt="image" src="https://github.com/user-attachments/assets/bc5060d9-4d2a-4b38-b47e-db2b2c9040b6" />
-
+<img width="847" height="437" alt="image" src="https://github.com/user-attachments/assets/b5783c62-c70e-48da-914a-789fc200d581" />
 
 
 
