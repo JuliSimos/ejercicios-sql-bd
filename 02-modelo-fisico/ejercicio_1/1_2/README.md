@@ -8,14 +8,19 @@
 ### Script de Borrado (DROP TABLE)
 *El orden es inverso a la creación para evitar conflictos de FK*
   ```sql
-  DROP TABLE IF EXISTS PRESTAMO_LIBRO CASCADE; 
-  DROP TABLE IF EXISTS PRESTAMO CASCADE; 
-  DROP TABLE IF EXISTS EJEMPLAR_LIBRO CASCADE; 
-  DROP TABLE IF EXISTS AUTOR CASCADE; 
-  DROP TABLE IF EXISTS CATALOGO_LIBRO CASCADE; 
-  DROP TABLE IF EXISTS SIN_CARNET CASCADE; 
-  DROP TABLE IF EXISTS CON_CARNET CASCADE; 
-  DROP TABLE IF EXISTS USUARIO CASCADE;
+-- 1. Las tablas que unen relaciones o son subtipos
+DROP TABLE IF EXISTS prestamo_libro; 
+DROP TABLE IF EXISTS Con_carnet;
+DROP TABLE IF EXISTS Sin_carnet;
+
+-- 2. Las tablas que dependen de entidades principales
+DROP TABLE IF EXISTS Prestamo;
+DROP TABLE IF EXISTS Autor;
+DROP TABLE IF EXISTS Ejemplar_libro;
+
+-- 3. Las tablas maestras o independientes
+DROP TABLE IF EXISTS Usuario;
+DROP TABLE IF EXISTS Catalogo_libro;
 ```
 
 
@@ -27,7 +32,8 @@
 
 ## Diagrama Fisico
 
-<img width="975" height="522" alt="image" src="https://github.com/user-attachments/assets/588c3012-5cc7-406b-a3ca-aff2c1fb2a63" />
+<img width="832" height="429" alt="image" src="https://github.com/user-attachments/assets/bc5060d9-4d2a-4b38-b47e-db2b2c9040b6" />
+
 
 
 
