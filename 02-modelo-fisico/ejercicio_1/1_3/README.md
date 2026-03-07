@@ -8,12 +8,12 @@
 ### Script de Borrado (DROP TABLE)
 
   ```sql
-DROP TABLE IF EXISTS ENVIO CASCADE;
-DROP TABLE IF EXISTS PQ_LIQUIDO CASCADE;
-DROP TABLE IF EXISTS PQ_SOLIDO CASCADE;
-DROP TABLE IF EXISTS COMPONENTE_QUIMICO CASCADE;
-DROP TABLE IF EXISTS PRODUCTO_QUIMICO CASCADE;
-DROP TABLE IF EXISTS CLIENTE CASCADE;
+DROP TABLE IF EXISTS Envio CASCADE;
+DROP TABLE IF EXISTS Compone_Prod_Quim CASCADE;
+DROP TABLE IF EXISTS Pq_liquido CASCADE;
+DROP TABLE IF EXISTS Pq_solido CASCADE;
+DROP TABLE IF EXISTS Producto_quimico CASCADE;
+DROP TABLE IF EXISTS Cliente CASCADE;
 ```
 
 
@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS CLIENTE CASCADE;
 
 ## Diagrama Fisico
 
-<img width="912" height="450" alt="image" src="https://github.com/user-attachments/assets/9f3f10fa-d2a1-4e3b-b266-ff16342e968c" />
+<img width="813" height="367" alt="image" src="https://github.com/user-attachments/assets/3a694b3b-4c07-45d9-a3c8-54bb83d4887e" />
 
 
 
