@@ -1,119 +1,120 @@
 -- Created by Redgate Data Modeler (https://datamodeler.redgate-platform.com)
--- Last modification date: 2025-12-12 18:15:15.02
+-- Last modification date: 2026-03-07 22:56:31.154
 
 -- tables
--- Table: CLIENTE
-CREATE TABLE CLIENTE (
+-- Table: Cliente
+CREATE TABLE Cliente (
     id_cliente serial  NOT NULL,
     CUIT int  NOT NULL,
-    apellido varchar(60)  NOT NULL,
-    nombre varchar(60)  NOT NULL,
-    direccion_calle varchar(100)  NOT NULL,
+    apellido varchar(30)  NOT NULL,
+    nombre varchar(30)  NOT NULL,
+    direccion_calle varchar(60)  NOT NULL,
     direccion_puerta int  NOT NULL,
     direccion_piso int  NOT NULL,
-    email varchar(60)  NULL,
+    email varchar(100)  NULL,
     telefono varchar(60)  NOT NULL,
-    id_cliente_garante int  NULL,
-    CONSTRAINT ak_garante UNIQUE (id_cliente_garante) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT pk_cliente PRIMARY KEY (id_cliente)
+    id_garante int  NULL,
+    CONSTRAINT ak_Cliente UNIQUE (CUIT) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT Cliente_pk PRIMARY KEY (id_cliente)
 );
 
--- Table: COMPONENTE_QUIMICO
-CREATE TABLE COMPONENTE_QUIMICO (
-    id_producto_quimico int  NOT NULL,
-    pq_porcentaje decimal  NOT NULL,
-    CONSTRAINT pk_componente_quimico PRIMARY KEY (id_producto_quimico)
+-- Table: Compone_prod_quim
+CREATE TABLE Compone_prod_quim (
+    id_prod_quim int  NOT NULL,
+    id_prod_componente int  NOT NULL,
+    porcentaje decimal  NOT NULL,
+    CONSTRAINT Compone_prod_quim_pk PRIMARY KEY (id_prod_quim,id_prod_componente)
 );
 
--- Table: ENVIO
-CREATE TABLE ENVIO (
-    nro_envio int  NOT NULL,
+-- Table: Envio
+CREATE TABLE Envio (
+    nro_envio serial  NOT NULL,
     id_cliente int  NOT NULL,
-    id_producto_quimico int  NOT NULL,
+    id_prod_quim int  NOT NULL,
     peso decimal  NOT NULL,
     cantidad int  NOT NULL,
-    CONSTRAINT pk_envio PRIMARY KEY (nro_envio)
+    CONSTRAINT Envio_pk PRIMARY KEY (nro_envio)
 );
 
--- Table: PQ_LIQUIDO
-CREATE TABLE PQ_LIQUIDO (
-    id_producto_quimico int  NOT NULL,
-    inflamable char(1)  NOT NULL,
-    tipo_envace varchar(60)  NOT NULL,
-    cond_translado varchar(100)  NULL,
-    CONSTRAINT pk_producto_liquido PRIMARY KEY (id_producto_quimico)
+-- Table: Pq_liquido
+CREATE TABLE Pq_liquido (
+    id_prod_quim int  NOT NULL,
+    inflamable boolean  NOT NULL,
+    tipo_envace varchar(30)  NOT NULL,
+    cond_translado varchar(60)  NULL,
+    CONSTRAINT Pq_liquido_pk PRIMARY KEY (id_prod_quim)
 );
 
--- Table: PQ_SOLIDO
-CREATE TABLE PQ_SOLIDO (
-    id_producto_quimico int  NOT NULL,
-    forma varchar(60)  NOT NULL,
-    empaque_max int  NOT NULL,
-    CONSTRAINT pk_producto_solido PRIMARY KEY (id_producto_quimico)
-);
-
--- Table: PRODUCTO_QUIMICO
-CREATE TABLE PRODUCTO_QUIMICO (
-    id_producto_quimico serial  NOT NULL,
-    id_componente_quimico int  NOT NULL,
-    nombre_producto_quimico varchar(150)  NOT NULL,
+-- Table: Pq_solido
+CREATE TABLE Pq_solido (
+    id_prod_quim int  NOT NULL,
     formula varchar(100)  NOT NULL,
-    CONSTRAINT pk_producto_quimico PRIMARY KEY (id_producto_quimico)
+    empaque_max int  NOT NULL,
+    CONSTRAINT Pq_solido_pk PRIMARY KEY (id_prod_quim)
+);
+
+-- Table: Producto_quimico
+CREATE TABLE Producto_quimico (
+    id_prod_quim serial  NOT NULL,
+    nombre_prod_quim varchar(100)  NOT NULL,
+    formula varchar(200)  NOT NULL,
+    tipo char(1)  NOT NULL,
+    CONSTRAINT Producto_quimico_pk PRIMARY KEY (id_prod_quim)
 );
 
 -- foreign keys
--- Reference: CLIENTE_CLIENTE (table: CLIENTE)
-ALTER TABLE CLIENTE ADD CONSTRAINT CLIENTE_CLIENTE
-    FOREIGN KEY (id_cliente_garante)
-    REFERENCES CLIENTE (id_cliente)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
--- Reference: fj_envio_cliente (table: ENVIO)
-ALTER TABLE ENVIO ADD CONSTRAINT fj_envio_cliente
+-- Reference: fk_Cliente_Envio (table: Envio)
+ALTER TABLE Envio ADD CONSTRAINT fk_Cliente_Envio
     FOREIGN KEY (id_cliente)
-    REFERENCES CLIENTE (id_cliente)  
+    REFERENCES Cliente (id_cliente)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: fk_componente_quimico_producto_quimico (table: COMPONENTE_QUIMICO)
-ALTER TABLE COMPONENTE_QUIMICO ADD CONSTRAINT fk_componente_quimico_producto_quimico
-    FOREIGN KEY (id_producto_quimico)
-    REFERENCES PRODUCTO_QUIMICO (id_producto_quimico)  
+-- Reference: fk_Cliente_Garante (table: Cliente)
+ALTER TABLE Cliente ADD CONSTRAINT fk_Cliente_Garante
+    FOREIGN KEY (id_garante)
+    REFERENCES Cliente (id_cliente)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: fk_pq_liquido_producto_quimico (table: PQ_LIQUIDO)
-ALTER TABLE PQ_LIQUIDO ADD CONSTRAINT fk_pq_liquido_producto_quimico
-    FOREIGN KEY (id_producto_quimico)
-    REFERENCES PRODUCTO_QUIMICO (id_producto_quimico)  
+-- Reference: fk_Compone_Prod_Quim (table: Compone_prod_quim)
+ALTER TABLE Compone_prod_quim ADD CONSTRAINT fk_Compone_Prod_Quim
+    FOREIGN KEY (id_prod_componente)
+    REFERENCES Producto_quimico (id_prod_quim)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: fk_pq_solido_producto_quimico (table: PQ_SOLIDO)
-ALTER TABLE PQ_SOLIDO ADD CONSTRAINT fk_pq_solido_producto_quimico
-    FOREIGN KEY (id_producto_quimico)
-    REFERENCES PRODUCTO_QUIMICO (id_producto_quimico)  
+-- Reference: fk_Producto_quimico_Compone (table: Compone_prod_quim)
+ALTER TABLE Compone_prod_quim ADD CONSTRAINT fk_Producto_quimico_Compone
+    FOREIGN KEY (id_prod_quim)
+    REFERENCES Producto_quimico (id_prod_quim)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: fk_producto_quimico_componente_quimico (table: PRODUCTO_QUIMICO)
-ALTER TABLE PRODUCTO_QUIMICO ADD CONSTRAINT fk_producto_quimico_componente_quimico
-    FOREIGN KEY (id_componente_quimico)
-    REFERENCES COMPONENTE_QUIMICO (id_producto_quimico)  
+-- Reference: fk_Producto_quimico_Envio (table: Envio)
+ALTER TABLE Envio ADD CONSTRAINT fk_Producto_quimico_Envio
+    FOREIGN KEY (id_prod_quim)
+    REFERENCES Producto_quimico (id_prod_quim)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: fk_producto_quimico_envio (table: ENVIO)
-ALTER TABLE ENVIO ADD CONSTRAINT fk_producto_quimico_envio
-    FOREIGN KEY (id_producto_quimico)
-    REFERENCES PRODUCTO_QUIMICO (id_producto_quimico)  
+-- Reference: fk_Producto_quimico_Pq_liquido (table: Pq_liquido)
+ALTER TABLE Pq_liquido ADD CONSTRAINT fk_Producto_quimico_Pq_liquido
+    FOREIGN KEY (id_prod_quim)
+    REFERENCES Producto_quimico (id_prod_quim)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: fk_Producto_quimico_Pq_solido (table: Pq_solido)
+ALTER TABLE Pq_solido ADD CONSTRAINT fk_Producto_quimico_Pq_solido
+    FOREIGN KEY (id_prod_quim)
+    REFERENCES Producto_quimico (id_prod_quim)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
