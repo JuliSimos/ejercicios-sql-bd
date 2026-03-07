@@ -39,7 +39,8 @@ Puntos clave del diseño:
 
 - **Restricción de Ventas:** Para respetar la anotación de que cada producto se vende en un único departamento, se estableció una cardinalidad (1,1) desde el lado del Producto hacia la relación de venta con el Departamento.
   
-<img width="749" height="475" alt="image" src="https://github.com/user-attachments/assets/c96c738d-1457-4641-b1ba-04938ed08ccf" />
+<img width="683" height="479" alt="image" src="https://github.com/user-attachments/assets/95674807-9142-41a3-8792-b86e5b93b50d" />
+
 
 ### Ejercicio 3: Sistema de Distribución de Paquetes
 
