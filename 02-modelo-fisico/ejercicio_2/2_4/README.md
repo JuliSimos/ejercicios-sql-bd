@@ -40,11 +40,11 @@ A partir del enunciado, se identifican las siguientes necesidades funcionales:
 
 ### Modelo lógico
 
-<img width="666" height="463" alt="image" src="https://github.com/user-attachments/assets/13621e41-1b6b-4117-8f17-aa2e929f9aac" />
+<img width="704" height="464" alt="image" src="https://github.com/user-attachments/assets/d413b02f-3ebf-4adb-a000-b67c92b12e77" />
 
 
 ### Modelo físico
 
-<img width="1106" height="631" alt="image" src="https://github.com/user-attachments/assets/2b782b0f-137d-4cba-9ff3-9c355a6569cf" />
+<img width="1086" height="534" alt="image" src="https://github.com/user-attachments/assets/17f41ea7-275e-4a32-9e17-aa1173b2bbe9" />
 
 
