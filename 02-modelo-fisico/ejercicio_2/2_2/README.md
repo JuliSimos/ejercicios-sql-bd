@@ -25,13 +25,31 @@ Se quiere registrar información correspondiente a un depósito, sus departament
 4. Cada fabricante está identificado por un identificador propio. Se registra su nombre, dirección, los productos que suministra al almacén y los precios correspondientes.
 
 5. Un departamento puede tener muchos empleados, pero cada empleado solo puede ser jefe de un único departamento.
+___
+
+### Notas de Implementación (Modelo Físico)
+**Resolución de la Jerarquía y Jefatura**
+En el diseño físico, se unificó la información de los empleados en una única tabla. Para cumplir con las reglas de negocio, se aplicó la siguiente lógica:
+
+- **Atributo de Discriminación:** Se añadió la columna tipo en la tabla Empleado para identificar el rol de cada registro (administrativo o jefe)
+
+- **Relación de Jefatura:** La vinculación se resuelve en la tabla Departamento mediante la columna id_jefe. Esta actúa como una clave foránea (FK) que referencia al número de empleado
+
+- **Clave Única (AK) sobre id_jefe:** Asegura que un empleado pueda figurar como jefe en un solo departamento a la vez, garantizando la relación 1:1
+
+**Identificación de Productos y Fabricantes**
+
+- **Clave Primaria Compuesta:** En la tabla Producto, se definió una PK conformada por el código del almacén y el número del fabricante. Esto identifica de forma única cada artículo según su origen
+
+- **Asignación de Punto de Venta:** La relación se establece guardando el código del departamento dentro de la tabla Producto, permitiendo que cada producto pertenezca a un único sector de ventas
+
 
 ### Modelo lógico
 
-<img width="723" height="372" alt="image" src="https://github.com/user-attachments/assets/7aa0c5c5-d13d-418a-9b84-ca624e8ef04e" />
+<img width="739" height="487" alt="image" src="https://github.com/user-attachments/assets/5152c2dd-33ea-49fb-8d09-97dad598c9e7" />
 
 
 ### Modelo físico
 
-<img width="997" height="696" alt="image" src="https://github.com/user-attachments/assets/e95a3d59-6d54-4ff0-988b-cf8be1e766da" />
+<img width="873" height="720" alt="image" src="https://github.com/user-attachments/assets/dafe0aa9-0412-48e1-889c-d50c316e6837" />
 
