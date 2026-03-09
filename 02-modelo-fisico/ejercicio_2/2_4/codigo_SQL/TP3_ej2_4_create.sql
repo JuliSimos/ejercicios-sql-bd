@@ -1,127 +1,123 @@
 -- Created by Redgate Data Modeler (https://datamodeler.redgate-platform.com)
--- Last modification date: 2025-12-12 20:37:33.26
+-- Last modification date: 2026-03-09 20:58:52.891
 
 -- tables
--- Table: CUIDADOR
-CREATE TABLE CUIDADOR (
+-- Table: Cuida
+CREATE TABLE Cuida (
+    dni_infante int  NOT NULL,
     dni_cuidador int  NOT NULL,
-    nombre int  NOT NULL,
-    apellido int  NOT NULL,
-    id_insitucion int  NOT NULL,
-    CONSTRAINT CUIDADOR_pk PRIMARY KEY (dni_cuidador)
+    CONSTRAINT pk_Cuida PRIMARY KEY (dni_infante,dni_cuidador)
 );
 
--- Table: ENFERMEDADES_ACTUALES
-CREATE TABLE ENFERMEDADES_ACTUALES (
-    dni_infante int  NOT NULL,
-    nombre_enfermedad varchar(60)  NOT NULL,
-    CONSTRAINT ENFERMEDADES_ACTUALES_pk PRIMARY KEY (dni_infante)
+-- Table: Cuidador
+CREATE TABLE Cuidador (
+    dni_cuidador int  NOT NULL,
+    nombre varchar(30)  NOT NULL,
+    apellido varchar(30)  NOT NULL,
+    nombre_institucion varchar(100)  NOT NULL,
+    CONSTRAINT pk_Cuidador PRIMARY KEY (dni_cuidador)
 );
 
--- Table: ENFERMEDADES_PASADAS
-CREATE TABLE ENFERMEDADES_PASADAS (
+-- Table: Enfermedad_Actual
+CREATE TABLE Enfermedad_Actual (
     dni_infante int  NOT NULL,
-    nombre_enfermedad varchar(60)  NOT NULL,
-    CONSTRAINT ENFERMEDADES_PASADAS_pk PRIMARY KEY (dni_infante)
+    nombre_enfermedad varchar(100)  NOT NULL,
+    CONSTRAINT pk_Enfermedad_actual PRIMARY KEY (dni_infante,nombre_enfermedad)
 );
 
--- Table: INFANTE
-CREATE TABLE INFANTE (
+-- Table: Enfermedad_Pasada
+CREATE TABLE Enfermedad_Pasada (
     dni_infante int  NOT NULL,
-    nombre varchar(60)  NOT NULL,
-    apellido varchar(60)  NOT NULL,
-    fecha_nac date  NOT NULL,
-    lugar_nac varchar(60)  NOT NULL,
-    nombre_padre varchar(60)  NOT NULL,
-    apellido_padre varchar(60)  NOT NULL,
-    nombre_madre varchar(60)  NOT NULL,
-    apellido_madre varchar(60)  NOT NULL,
+    nombre_enfermedad varchar(100)  NOT NULL,
+    CONSTRAINT pk_Enfermedad_pasada PRIMARY KEY (dni_infante,nombre_enfermedad)
+);
+
+-- Table: Infante
+CREATE TABLE Infante (
+    dni_infante int  NOT NULL,
+    nombre_institucion varchar(100)  NOT NULL,
+    nombre varchar(30)  NOT NULL,
+    apellido varchar(30)  NOT NULL,
+    fecha_nacimiento date  NOT NULL,
+    lugar_nacimiento varchar(60)  NOT NULL,
+    nombre_completo_padre varchar(100)  NOT NULL,
+    nombre_completo_madre varchar(100)  NOT NULL,
     fecha_retorno date  NULL,
-    ciudados_especiales varchar(200)  NULL,
-    dni_cuidador int  NOT NULL,
-    CONSTRAINT INFANTE_pk PRIMARY KEY (dni_infante)
+    cuidados_especiales boolean  NOT NULL,
+    CONSTRAINT pk_Infante PRIMARY KEY (dni_infante)
 );
 
--- Table: INSTITUCION
-CREATE TABLE INSTITUCION (
-    id_insitucion serial  NOT NULL,
-    nombre varchar(100)  NOT NULL,
+-- Table: Institucion
+CREATE TABLE Institucion (
+    nombre_institucion varchar(100)  NOT NULL,
     pais varchar(60)  NOT NULL,
     region varchar(60)  NOT NULL,
     ciudad varchar(60)  NOT NULL,
-    CONSTRAINT ak_institucion UNIQUE (nombre) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT INSTITUCION_pk PRIMARY KEY (id_insitucion)
+    CONSTRAINT pk_Institucion PRIMARY KEY (nombre_institucion)
 );
 
--- Table: Inscripto
-CREATE TABLE Inscripto (
+-- Table: Pariente
+CREATE TABLE Pariente (
     dni_infante int  NOT NULL,
-    id_insitucion int  NOT NULL,
-    CONSTRAINT Inscripto_pk PRIMARY KEY (dni_infante,id_insitucion)
-);
-
--- Table: PARIENTE
-CREATE TABLE PARIENTE (
-    dni_infante int  NOT NULL,
-    nombre varchar(60)  NOT NULL,
-    apellido varchar(60)  NOT NULL,
-    relacion varchar(60)  NOT NULL,
-    CONSTRAINT PARIENTE_pk PRIMARY KEY (dni_infante,nombre,apellido)
+    nombre varchar(30)  NOT NULL,
+    apellido varchar(30)  NOT NULL,
+    relacion varchar(30)  NOT NULL,
+    CONSTRAINT pk_Pariente PRIMARY KEY (dni_infante,nombre,apellido)
 );
 
 -- foreign keys
--- Reference: FK_CUIDADOR_INFANTE (table: INFANTE)
-ALTER TABLE INFANTE ADD CONSTRAINT FK_CUIDADOR_INFANTE
+-- Reference: Cuida_Cuidador (table: Cuida)
+ALTER TABLE Cuida ADD CONSTRAINT Cuida_Cuidador
     FOREIGN KEY (dni_cuidador)
-    REFERENCES CUIDADOR (dni_cuidador)  
+    REFERENCES Cuidador (dni_cuidador)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: FK_INFANTE_ENFERMEDADES_ACTUALES (table: ENFERMEDADES_ACTUALES)
-ALTER TABLE ENFERMEDADES_ACTUALES ADD CONSTRAINT FK_INFANTE_ENFERMEDADES_ACTUALES
+-- Reference: fk_Infante_Cuida (table: Cuida)
+ALTER TABLE Cuida ADD CONSTRAINT fk_Infante_Cuida
     FOREIGN KEY (dni_infante)
-    REFERENCES INFANTE (dni_infante)  
+    REFERENCES Infante (dni_infante)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: FK_INFANTE_ENFERMEDADES_PASADAS (table: ENFERMEDADES_PASADAS)
-ALTER TABLE ENFERMEDADES_PASADAS ADD CONSTRAINT FK_INFANTE_ENFERMEDADES_PASADAS
+-- Reference: fk_Infante_Enfermedad_Actual (table: Enfermedad_Actual)
+ALTER TABLE Enfermedad_Actual ADD CONSTRAINT fk_Infante_Enfermedad_Actual
     FOREIGN KEY (dni_infante)
-    REFERENCES INFANTE (dni_infante)  
+    REFERENCES Infante (dni_infante)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: FK_INFANTE_PARIENTE (table: PARIENTE)
-ALTER TABLE PARIENTE ADD CONSTRAINT FK_INFANTE_PARIENTE
+-- Reference: fk_Infante_Enfermedad_Pasada (table: Enfermedad_Pasada)
+ALTER TABLE Enfermedad_Pasada ADD CONSTRAINT fk_Infante_Enfermedad_Pasada
     FOREIGN KEY (dni_infante)
-    REFERENCES INFANTE (dni_infante)  
+    REFERENCES Infante (dni_infante)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: FK_INSTITUCION_CUIDADOR (table: CUIDADOR)
-ALTER TABLE CUIDADOR ADD CONSTRAINT FK_INSTITUCION_CUIDADOR
-    FOREIGN KEY (id_insitucion)
-    REFERENCES INSTITUCION (id_insitucion)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
--- Reference: FK_INSTITUCION_INSCRIPTO (table: Inscripto)
-ALTER TABLE Inscripto ADD CONSTRAINT FK_INSTITUCION_INSCRIPTO
-    FOREIGN KEY (id_insitucion)
-    REFERENCES INSTITUCION (id_insitucion)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
--- Reference: FL_INFANTE_INSCRIPTO (table: Inscripto)
-ALTER TABLE Inscripto ADD CONSTRAINT FL_INFANTE_INSCRIPTO
+-- Reference: fk_Infante_Pariente (table: Pariente)
+ALTER TABLE Pariente ADD CONSTRAINT fk_Infante_Pariente
     FOREIGN KEY (dni_infante)
-    REFERENCES INFANTE (dni_infante)  
+    REFERENCES Infante (dni_infante)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: fk_Institucion_Cuidador (table: Cuidador)
+ALTER TABLE Cuidador ADD CONSTRAINT fk_Institucion_Cuidador
+    FOREIGN KEY (nombre_institucion)
+    REFERENCES Institucion (nombre_institucion)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: fk_Institucion_Infante (table: Infante)
+ALTER TABLE Infante ADD CONSTRAINT fk_Institucion_Infante
+    FOREIGN KEY (nombre_institucion)
+    REFERENCES Institucion (nombre_institucion)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
