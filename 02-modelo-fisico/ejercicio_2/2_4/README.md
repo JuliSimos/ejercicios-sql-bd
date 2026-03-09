@@ -45,6 +45,6 @@ A partir del enunciado, se identifican las siguientes necesidades funcionales:
 
 ### Modelo físico
 
-<img width="1086" height="534" alt="image" src="https://github.com/user-attachments/assets/17f41ea7-275e-4a32-9e17-aa1173b2bbe9" />
+<img width="1246" height="683" alt="image" src="https://github.com/user-attachments/assets/382e27fa-bc9b-406f-bdc7-5d42c3bb49f1" />
 
 
