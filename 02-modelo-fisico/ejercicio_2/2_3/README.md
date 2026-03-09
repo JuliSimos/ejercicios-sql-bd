@@ -28,10 +28,8 @@ Se desea informatizar la gestión de una empresa de transportes que reparte paqu
     - Esto implica una relación muchos a muchos con atributo (fecha).
 
 ### Modelo lógico
-<img width="818" height="283" alt="image" src="https://github.com/user-attachments/assets/089e6fab-26fc-4a2e-9557-2835412a5a4a" />
-
+<img width="754" height="292" alt="image" src="https://github.com/user-attachments/assets/745d7069-f802-47cd-a16f-9c7a16c1cc97" />
 
 ### Modelo físico
-<img width="940" height="507" alt="image" src="https://github.com/user-attachments/assets/6b279257-b522-4de9-ae1d-71c011c86053" />
-
+<img width="1044" height="487" alt="image" src="https://github.com/user-attachments/assets/a7f167d5-7d36-43d2-afa8-d4bc23573a3e" />
 
