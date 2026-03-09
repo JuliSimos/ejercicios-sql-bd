@@ -33,4 +33,5 @@ Se quiere registrar información correspondiente a un depósito, sus departament
 
 ### Modelo físico
 
-<img width="1032" height="573" alt="image" src="https://github.com/user-attachments/assets/a249921b-e100-4624-a418-999904077110" />
+<img width="997" height="696" alt="image" src="https://github.com/user-attachments/assets/e95a3d59-6d54-4ff0-988b-cf8be1e766da" />
+
