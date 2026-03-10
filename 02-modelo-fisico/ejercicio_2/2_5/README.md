@@ -47,61 +47,20 @@ Se desea informatizar la gestión de una biblioteca que presta libros a sus lect
 
 ---
 
-###  Interpretación:
-
-A partir del enunciado, se identifican los siguientes elementos del modelo:
-
-#### **Entidades principales**
-- **Lector**
-- **Libro**
-- **Ejemplar**
-- **Empleado**
-- **Categoría**
-- **Reserva**
-- **Préstamo**
-
-#### **Relaciones y restricciones**
-
-- **Lector–Préstamo (1:N)**  
-  Un lector puede realizar múltiples préstamos
-
-- **Ejemplar–Préstamo (1:1 en un instante)**  
-  Un ejemplar sólo puede estar prestado a un lector a la vez 
-  La restricción se controla a nivel de lógica del sistema
-
-- **Libro–Ejemplar (1:N)**  
-  Un libro puede tener múltiples copias físicas
-
-- **Empleado–Préstamo (1:N)**  
-  Cada préstamo es gestionado por un único empleado
-
-- **Libro–Categoría (N:N)**  
-  Relación muchos a muchos mediante tabla intermedia
-
-- **Lector–Reserva (1:N)**  
-  Un lector puede realizar varias reservas
-
-- **Libro–Reserva (1:N)**  
-  Un libro puede tener múltiples reservas
-
-- **Reserva**  
-  Incluye atributos propios: fecha y estado
-
-- **Ubicación de ejemplares / colección**  
-  Se almacena para identificar dónde está cada copia dentro de la biblioteca
 
 ---
 
 ###  Modelo lógico
 
-<img width="930" height="540" alt="image" src="https://github.com/user-attachments/assets/e69ee150-cf02-45c3-9432-c951fa0afe5a" />
+<img width="961" height="549" alt="image" src="https://github.com/user-attachments/assets/b81e7df9-5dcf-4d78-a4c6-648800d43f18" />
 
 ---
 
 ###  Modelo físico
 
-<img width="1134" height="492" alt="image" src="https://github.com/user-attachments/assets/f5ddbfce-3f6e-4f63-8cdc-d211e6c0d441" />
+<img width="962" height="642" alt="image" src="https://github.com/user-attachments/assets/7185e357-605d-49d1-9f22-d68ab7550970" />
 
 
 ---
+
 
