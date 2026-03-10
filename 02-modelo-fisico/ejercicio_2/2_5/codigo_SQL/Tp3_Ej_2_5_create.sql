@@ -1,163 +1,148 @@
 -- Created by Redgate Data Modeler (https://datamodeler.redgate-platform.com)
--- Last modification date: 2025-12-12 21:38:42.977
+-- Last modification date: 2026-03-10 03:57:02.878
 
 -- tables
--- Table: CATEGORIA
-CREATE TABLE CATEGORIA (
+-- Table: Categoria
+CREATE TABLE Categoria (
     id_categoria serial  NOT NULL,
-    nombre int  NOT NULL,
-    CONSTRAINT ak_categoria UNIQUE (nombre) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT CATEGORIA_pk PRIMARY KEY (id_categoria)
+    nombre_categoria varchar(60)  NOT NULL,
+    CONSTRAINT pk_Categoria PRIMARY KEY (id_categoria)
 );
 
--- Table: CATEGORIA_LIBRO
-CREATE TABLE CATEGORIA_LIBRO (
-    ISBN_libro int  NOT NULL,
+-- Table: Categoria_Libro
+CREATE TABLE Categoria_Libro (
     id_categoria int  NOT NULL,
-    CONSTRAINT CATEGORIA_LIBRO_pk PRIMARY KEY (ISBN_libro,id_categoria)
+    ISBN_libro int  NOT NULL,
+    CONSTRAINT pk_Categoria_Libro PRIMARY KEY (id_categoria,ISBN_libro)
 );
 
--- Table: COPIA_LIBRO
-CREATE TABLE COPIA_LIBRO (
+-- Table: Copia_Libro
+CREATE TABLE Copia_Libro (
     ISBN_libro int  NOT NULL,
+    cod_libro serial  NOT NULL,
     nro_ejemplar int  NOT NULL,
     fecha_edicion date  NOT NULL,
     nro_edicion int  NOT NULL,
-    estanteria int  NOT NULL,
-    CONSTRAINT ak_copia_libro UNIQUE (nro_ejemplar) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT COPIA_LIBRO_pk PRIMARY KEY (nro_ejemplar,ISBN_libro)
+    CONSTRAINT ak_Copia_Libro UNIQUE (nro_ejemplar) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT pk_Copia_Libro PRIMARY KEY (cod_libro,ISBN_libro)
 );
 
--- Table: EMPLEADO
-CREATE TABLE EMPLEADO (
-    dni_empleado int  NOT NULL,
-    nombre varchar(60)  NOT NULL,
-    cargo varchar(30)  NOT NULL,
-    entrada_horaria time  NOT NULL,
-    salida_horaria time  NOT NULL,
-    CONSTRAINT EMPLEADO_pk PRIMARY KEY (dni_empleado)
+-- Table: Empleado
+CREATE TABLE Empleado (
+    nro_empleado serial  NOT NULL,
+    nombre_empleado varchar(30)  NOT NULL,
+    cargo varchar(60)  NOT NULL,
+    entrada_horaria int  NOT NULL,
+    salida_horaria int  NOT NULL,
+    CONSTRAINT pk_Empleado PRIMARY KEY (nro_empleado)
 );
 
--- Table: LECTOR
-CREATE TABLE LECTOR (
+-- Table: Lector
+CREATE TABLE Lector (
     dni_lector int  NOT NULL,
-    nombre varchar(60)  NOT NULL,
-    telefono varchar(60)  NOT NULL,
+    nombre varchar(30)  NOT NULL,
+    telefono varchar(30)  NOT NULL,
     direccion varchar(60)  NOT NULL,
-    email varchar(60)  NOT NULL,
-    CONSTRAINT LECTOR_pk PRIMARY KEY (dni_lector)
+    email varchar(30)  NOT NULL,
+    CONSTRAINT pk_Lector PRIMARY KEY (dni_lector)
 );
 
--- Table: LIBRO
-CREATE TABLE LIBRO (
+-- Table: Libro
+CREATE TABLE Libro (
     ISBN_libro serial  NOT NULL,
     titulo varchar(100)  NOT NULL,
     autor varchar(60)  NOT NULL,
-    editoria varchar(60)  NOT NULL,
+    editorial varchar(60)  NOT NULL,
     fecha_publicacion date  NOT NULL,
-    genero varchar(60)  NOT NULL,
-    CONSTRAINT LIBRO_pk PRIMARY KEY (ISBN_libro)
+    genero varchar(30)  NOT NULL,
+    CONSTRAINT pk_Libro PRIMARY KEY (ISBN_libro)
 );
 
--- Table: PRESTAMO
-CREATE TABLE PRESTAMO (
+-- Table: Prestamo
+CREATE TABLE Prestamo (
     id_prestamo serial  NOT NULL,
+    dni_lector int  NOT NULL,
+    nro_empleado int  NOT NULL,
+    cod_copia_libro int  NOT NULL,
+    ISBN_libro int  NOT NULL,
     fecha_inicio date  NOT NULL,
     fecha_devolucion date  NOT NULL,
-    nro_ejemplar int  NOT NULL,
-    ISBN_libro int  NOT NULL,
-    dni_lector int  NOT NULL,
-    dni_empleado int  NOT NULL,
-    CONSTRAINT ak_prestamo UNIQUE (nro_ejemplar, ISBN_libro) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT PRESTAMO_pk PRIMARY KEY (id_prestamo)
+    CONSTRAINT ak_Prestamo UNIQUE (ISBN_libro, cod_copia_libro) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT pk_Prestamo PRIMARY KEY (id_prestamo)
 );
 
--- Table: RESERVA
-CREATE TABLE RESERVA (
-    id_reserva serial  NOT NULL,
+-- Table: Reserva
+CREATE TABLE Reserva (
+    nro_reserva serial  NOT NULL,
+    dni_lector int  NOT NULL,
+    ISBN_libro int  NOT NULL,
     fecha_inicio date  NOT NULL,
     fecha_fin date  NOT NULL,
     estado varchar(30)  NOT NULL,
-    dni_lector int  NOT NULL,
-    CONSTRAINT RESERVA_pk PRIMARY KEY (id_reserva)
-);
-
--- Table: RESERVA_LIBRO
-CREATE TABLE RESERVA_LIBRO (
-    id_reserva int  NOT NULL,
-    ISBN_libro int  NOT NULL,
-    CONSTRAINT RESERVA_LIBRO_pk PRIMARY KEY (id_reserva,ISBN_libro)
+    CONSTRAINT pk_Reserva PRIMARY KEY (nro_reserva)
 );
 
 -- foreign keys
--- Reference: FK_CATEGORIA_CATEGORIA_LIBRO (table: CATEGORIA_LIBRO)
-ALTER TABLE CATEGORIA_LIBRO ADD CONSTRAINT FK_CATEGORIA_CATEGORIA_LIBRO
+-- Reference: Copia_Libro_Libro (table: Copia_Libro)
+ALTER TABLE Copia_Libro ADD CONSTRAINT Copia_Libro_Libro
+    FOREIGN KEY (ISBN_libro)
+    REFERENCES Libro (ISBN_libro)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: fk_Categoria_Categoria_Libro (table: Categoria_Libro)
+ALTER TABLE Categoria_Libro ADD CONSTRAINT fk_Categoria_Categoria_Libro
     FOREIGN KEY (id_categoria)
-    REFERENCES CATEGORIA (id_categoria)  
+    REFERENCES Categoria (id_categoria)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: FK_COPIA_LIBRO_PRESTAMO (table: PRESTAMO)
-ALTER TABLE PRESTAMO ADD CONSTRAINT FK_COPIA_LIBRO_PRESTAMO
-    FOREIGN KEY (nro_ejemplar, ISBN_libro)
-    REFERENCES COPIA_LIBRO (nro_ejemplar, ISBN_libro)  
+-- Reference: fk_Copia_Libro_Prestamo (table: Prestamo)
+ALTER TABLE Prestamo ADD CONSTRAINT fk_Copia_Libro_Prestamo
+    FOREIGN KEY (cod_copia_libro, ISBN_libro)
+    REFERENCES Copia_Libro (cod_libro, ISBN_libro)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: FK_EMPLEADO_PRESTAMO (table: PRESTAMO)
-ALTER TABLE PRESTAMO ADD CONSTRAINT FK_EMPLEADO_PRESTAMO
-    FOREIGN KEY (dni_empleado)
-    REFERENCES EMPLEADO (dni_empleado)  
+-- Reference: fk_Empleado_Prestamo (table: Prestamo)
+ALTER TABLE Prestamo ADD CONSTRAINT fk_Empleado_Prestamo
+    FOREIGN KEY (nro_empleado)
+    REFERENCES Empleado (nro_empleado)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: FK_LECTOR_PRESTAMO (table: PRESTAMO)
-ALTER TABLE PRESTAMO ADD CONSTRAINT FK_LECTOR_PRESTAMO
+-- Reference: fk_Lector_Prestamo (table: Prestamo)
+ALTER TABLE Prestamo ADD CONSTRAINT fk_Lector_Prestamo
     FOREIGN KEY (dni_lector)
-    REFERENCES LECTOR (dni_lector)  
+    REFERENCES Lector (dni_lector)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: FK_LECTOR_RESERVA (table: RESERVA)
-ALTER TABLE RESERVA ADD CONSTRAINT FK_LECTOR_RESERVA
+-- Reference: fk_Lector_Reserva (table: Reserva)
+ALTER TABLE Reserva ADD CONSTRAINT fk_Lector_Reserva
     FOREIGN KEY (dni_lector)
-    REFERENCES LECTOR (dni_lector)  
+    REFERENCES Lector (dni_lector)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: FK_LIBRO_CATEGORIA_LIBRO (table: CATEGORIA_LIBRO)
-ALTER TABLE CATEGORIA_LIBRO ADD CONSTRAINT FK_LIBRO_CATEGORIA_LIBRO
+-- Reference: fk_Libro_Categoria_Libro (table: Categoria_Libro)
+ALTER TABLE Categoria_Libro ADD CONSTRAINT fk_Libro_Categoria_Libro
     FOREIGN KEY (ISBN_libro)
-    REFERENCES LIBRO (ISBN_libro)  
+    REFERENCES Libro (ISBN_libro)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: FK_LIBRO_COPIA_LIBRO (table: COPIA_LIBRO)
-ALTER TABLE COPIA_LIBRO ADD CONSTRAINT FK_LIBRO_COPIA_LIBRO
+-- Reference: fk_Libro_Reserva (table: Reserva)
+ALTER TABLE Reserva ADD CONSTRAINT fk_Libro_Reserva
     FOREIGN KEY (ISBN_libro)
-    REFERENCES LIBRO (ISBN_libro)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
--- Reference: FK_LIBRO_RESERVA_LIBRO (table: RESERVA_LIBRO)
-ALTER TABLE RESERVA_LIBRO ADD CONSTRAINT FK_LIBRO_RESERVA_LIBRO
-    FOREIGN KEY (ISBN_libro)
-    REFERENCES LIBRO (ISBN_libro)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
--- Reference: FK_RESERVA_RESERVA_LIBRO (table: RESERVA_LIBRO)
-ALTER TABLE RESERVA_LIBRO ADD CONSTRAINT FK_RESERVA_RESERVA_LIBRO
-    FOREIGN KEY (id_reserva)
-    REFERENCES RESERVA (id_reserva)  
+    REFERENCES Libro (ISBN_libro)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
