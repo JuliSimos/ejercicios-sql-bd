@@ -74,11 +74,12 @@ A partir del enunciado se identifican las siguientes entidades y relaciones:
 
 ## Modelo lógico
 
-<img width="662" height="519" alt="image" src="https://github.com/user-attachments/assets/ca53dc0d-5a3a-46fa-9a98-699319fb0628" />
+<img width="741" height="559" alt="image" src="https://github.com/user-attachments/assets/5d84a93f-415e-4b47-83de-cbf2bdff3211" />
 
 ## Modelo físico
 
-<img width="932" height="688" alt="image" src="https://github.com/user-attachments/assets/66ec5c07-50cf-4cb6-b922-c44fae559238" />
+<img width="920" height="464" alt="image" src="https://github.com/user-attachments/assets/6e41bf8e-e714-4488-83f1-d9f6cb33f487" />
+
 
 
 
