@@ -1,4 +1,6 @@
-# Ejercicios resueltos del practico modelado de datos
+# Trabajos Prácticos: Modelado de Datos
+
+Este repositorio recopila las soluciones y decisiones de diseño conceptual aplicadas a diferentes problemáticas de negocio, utilizando diagramas Entidad-Relación (DER)
 
 <details>
   <summary><b>Guía de Lectura: Cardinalidades </b></summary>
@@ -18,77 +20,66 @@
 
 ---
 
+## Ejercicio 1: Sistema de Facturación y Clientes
 
-### Ejercicio 1: Sistema de Facturación y Clientes
-  a. Analice si su modelo es capaz de respetar el precio de venta de cada producto cuando se modifica el precio de un producto.
-  
-  b. Proponga una solución para el DERE al problema
-  
-Puntos clave del diseño:
-  - Para evitar que el precio de una venta cambie cuando el producto se actualiza en el futuro, se define la relación "Contiene" entre Factura y Producto como una relación muchos a muchos. Al agregar los atributos cantidad y precio_unitario directamente en esta relación, el precio queda 'congelado' en la instancia de la factura, independientemente de los cambios posteriores en la tabla de Producto
+* **Reto:** Evitar que el precio histórico de venta de un producto se altere ante futuras modificaciones en el catálogo general.
+* **Solución de Diseño:** Se modeló una relación muchos a muchos (M:N) entre `Factura` y `Producto`, incorporando los atributos `cantidad` y `precio_unitario` en la relación misma. Esto permite congelar el valor exacto al momento de la transacción de forma independiente al catálogo.
 
-<img width="649" height="376" alt="image" src="https://github.com/user-attachments/assets/f8bc8244-0d7b-4d14-88d3-3bca8bc15429" />
+![Diagrama del Sistema de Facturación](./ej1_facturacion.jpg)
 
-### Ejercicio 2: Gestión de Depósito y Departamentos
+## Ejercicio 2: Gestión de Depósito y Departamentos
 
-Puntos clave del diseño:
+* **Reto:** Garantizar la exclusividad de líderes por departamento y resolver la identificación dependiente de los productos.
+* **Solución de Diseño:** 
+  * Se implementó una especialización disjunta `{d}` para separar a los empleados en `JEFE` y `NO_JEFE`, asegurando que un trabajador lidere un único sector.
+  * El `Producto` se definió como entidad débil, construyendo su identificación completa mediante el número de fabricante y el código de almacén.
+  * Se estableció una cardinalidad (1,1) desde el producto hacia la relación de venta para limitar su comercialización a un único departamento.
+ 
+ ![Diagrama de Gestión de Depósito y Departamentos](./ej2_deposito.jpg)
 
-- **Jerarquía de Empleados:** Se implementó una especialización disjunta (d) para separar a los empleados en las categorías JEFE y NO_JEFE. Esto permite asegurar que cada departamento tenga un único jefe asignado, cumpliendo con la restricción de que un empleado solo puede liderar un sector a la vez.
+## Ejercicio 3: Sistema de Distribución de Paquetes
 
-- **Identificación de Productos:** El producto se definió como una entidad débil. Su identidad completa se construye combinando el número asignado por el fabricante con el código del almacén, reflejando la dependencia de existencia respecto al fabricante.
+* **Reto:** Registrar el historial de conducción de camiones y asegurar la trazabilidad de los envíos.
+* **Solución de Diseño:** 
+  * Se estableció una relación con opcionalidad y atributos temporales (`fecha_inicio` y `fecha_fin`) entre `Camionero` y `Camión` para mantener el registro histórico de asignaciones.
+  * Se vinculó `Paquete` con `Camionero` mediante una cardinalidad (1,1) para garantizar un único responsable asignado por envío.
+  * Se configuró la relación con `Ciudad` para definir unívocamente la localidad de destino.
+ 
+ ![Diagrama de Sistema de Distribución de Paquetes](./ej3_distribuidora.jpg)
 
-- **Restricción de Ventas:** Para respetar la anotación de que cada producto se vende en un único departamento, se estableció una cardinalidad (1,1) desde el lado del Producto hacia la relación de venta con el Departamento.
-  
-<img width="683" height="479" alt="image" src="https://github.com/user-attachments/assets/95674807-9142-41a3-8792-b86e5b93b50d" />
+## Ejercicio 4: Sistema de Control de Niños Refugiados
 
+* **Reto:** Gestionar contactos, historiales médicos y la ubicación institucional de menores bajo cuidado.
+* **Solución de Diseño:** 
+  * Se configuró una relación de obligatoriedad múltiple (1,N) con `Cuidador` para asignar múltiples responsables por infante.
+  * Se utilizaron atributos multivaluados para datos sanitarios y filiatorios, evitando redundancias en la entidad principal.
+  * Se vinculó cada niño a una única `Institución` mediante una relación (1,1) que contiene la jerarquía geográfica.
+  * Se incorporó el atributo opcional `fecha_retorno` para registrar el reencuentro familiar en los casos que corresponda.
+ 
+ ![Diagrama de Sistema de Control de Niños Refugiados](./ej4_refugios.jpg)
 
-### Ejercicio 3: Sistema de Distribución de Paquetes
+  ---
 
-Puntos clave del diseño:
+## Ejercicio 5: Sistema de Gestión de Biblioteca y Préstamos
 
-- **Relación Histórica (N:N):** Para cumplir con el requisito de que un camionero conduce diferentes camiones en fechas distintas, se estableció una relación muchos a muchos entre Camionero y Camión. Se incluyeron los atributos fecha_inicio y fecha_fin en la relación para mantener el registro histórico de quién condujo qué vehículo.
+* **Reto:** Diferenciar la obra bibliográfica del stock físico y asegurar la trazabilidad de los préstamos.
+* **Solución de Diseño:** 
+  * Se separó la entidad `LIBRO` de `COPIA_LIBRO`, modelando esta última como entidad débil dependiente del ISBN para gestionar inventario individual.
+  * Se implementó una relación asociada entre `LECTOR`, `PRESTAMO` y `EMPLEADO` para auditar la operación.
+  * Se añadió la entidad `RESERVA` con relaciones de opcionalidad (0,N) para gestionar la demanda sobre ejemplares no disponibles.
+  * Se estableció una relación (M:N) con `CATEGORIA` para permitir la clasificación múltiple de las obras.
 
-- **Trazabilidad de Paquetes:** La relación entre Camionero y Paquete se definió como (1,1) del lado del paquete, asegurando que cada envío tenga un único responsable asignado para su distribución.
+ ![Diagrama de Sistema de Gestión de Biblioteca y Préstamos](./ej5_biblioteca.jpg)
+ 
+---
 
-- **Destino de Envíos:** Se vinculó Paquete con Ciudad mediante una relación de obligatoriedad, donde un paquete llega a una única ciudad de destino, pero una ciudad puede recibir múltiples paquetes a lo largo del tiempo.
-  
-<img width="753" height="299" alt="image" src="https://github.com/user-attachments/assets/b138c6a0-283c-4939-9b1f-e2a828e591ca" />
+## Ejercicio 6: Gestión de Startup de Consultoría Tecnológica
 
+* **Reto:** Modelar estructuras organizacionales complejas y la participación operativa en proyectos.
+* **Solución de Diseño:** 
+* Se separó la pertenencia administrativa a un `EQUIPO` de la participación operativa en múltiples `PROYECTO`s para registrar las distintas funciones de cada empleado.
+*   * La relación de liderazgo se configuró como (0,1) en empleados, permitiendo personal a cargo o ninguno.
+  * La vinculación con `CLIENTE` se estableció como opcional (0,1) para contemplar tanto desarrollos externos como productos propios.
+  * Se definieron evaluaciones de fase con opcionalidad (0,N) para permitir un registro incremental conforme avanza el desarrollo.
 
-### Ejercicio 4: Sistema de Control de Niños Refugiados
-Puntos clave del diseño:
-
-- **Gestión de Contactos y Cuidado:** Se estableció una relación de obligatoriedad múltiple (1,N) entre Infante y Cuidador. Esto permite que cada niño cuente con uno o más responsables asignados dentro de la institución, cumpliendo con el requisito de identificar a sus cuidadores y contactos.
-
-- **Atributos Multivaluados y Compuestos:** Para los datos sanitarios y filiatorios, se utilizaron atributos multivaluados (como enfermedades y parientes). Esto permite registrar un historial médico completo y múltiples vínculos familiares sin generar redundancia en la entidad principal.
-
-- **Localización Institucional:** La relación entre Infante e Institución se definió como (1,1) desde la perspectiva del niño. Esto asegura que cada menor esté vinculado obligatoriamente a una única sede, la cual contiene la información jerárquica de su ubicación geográfica (país, región y ciudad).
-
-- **Trazabilidad de Retorno:** Se incluyó el atributo fecha_retorno en la entidad Infante con carácter opcional. Esto permite registrar el reencuentro familiar en los casos donde se concrete, manteniendo el campo como nulo mientras el niño permanezca bajo el cuidado de la organización.
-<img width="687" height="452" alt="image" src="https://github.com/user-attachments/assets/5713ceba-bd1f-487f-8bb2-9f4a6a9622aa" />
-
-### Ejercicio 5: Sistema de Gestión de Biblioteca y Préstamos
-Puntos clave del diseño:
-
-- **Modelado de Ejemplares (Entidad Débil):** Se diferenció la entidad LIBRO (información bibliográfica) de COPIA_LIBRO (ejemplar físico). Esta última se definió como una entidad débil, ya que su identificación depende del ISBN del libro original, permitiendo gestionar el stock y la ubicación en estantería de forma individualizada.
-
-- **Gestión de Préstamos y Empleados:** Se implementó una relación ternaria o vinculada entre LECTOR, PRESTAMO y EMPLEADO para asegurar la trazabilidad de cada transacción, registrando no solo quién se lleva el libro, sino también qué funcionario autorizó la operación y en qué fechas.
-
-- **Sistema de Reservas:** Se incorporó la entidad RESERVA para gestionar la demanda de libros no disponibles. Se vinculó directamente con el LECTOR y el LIBRO mediante relaciones de opcionalidad (0,N), permitiendo un seguimiento del estado de la solicitud (pendiente, cancelada o completada).
-
-- **Categorización Muchos a Muchos:** Para cumplir con el requisito de que un libro puede pertenecer a múltiples géneros (Novela, Historia, etc.), se estableció una relación (N:N) con la entidad CATEGORIA, facilitando la clasificación y búsqueda avanzada en el catálogo.
-  
-<img width="930" height="540" alt="image" src="https://github.com/user-attachments/assets/b1c03f54-bc09-4591-8bb9-575c5d2e7a3d" />
-
-### Ejercicio 6: Gestión de Startup de Consultoría Tecnológica
-Puntos clave del diseño:
-
-- **Estructura de Equipos y Proyectos:** Se estableció una distinción entre la pertenencia a un EQUIPO y la participación operativa en un PROYECTO. Esto permite registrar a un empleado en su unidad administrativa mientras colabora en múltiples proyectos simultáneamente.
-
-- **Roles de Liderazgo:** La relación lidera cuenta con una cardinalidad (0,1) desde la perspectiva del empleado. Esto indica que un trabajador puede no tener personal a cargo o, como máximo, ser el líder de un único equipo.
-
-- **Flexibilidad de Clientes:** La vinculación con la entidad CLIENTE es de carácter opcional (0,1). Esta configuración permite al sistema gestionar tanto desarrollos para terceros como productos digitales propios de la startup.
-
-- **Ciclo de Vida y Evaluaciones:** Se definió una relación de opcionalidad (0,N) para las evaluaciones de fase. Esto posibilita el registro de proyectos nuevos que aún no han sido auditados, permitiendo que los controles se sumen de forma incremental conforme avance el desarrollo.
-
-<img width="731" height="560" alt="image" src="https://github.com/user-attachments/assets/6e7835f7-c360-4a36-808f-6a1d92dcb5e8" />
+ ![Diagrama de Gestión de Startup de Consultoría Tecnológica](./ej6_consultoria_tecnologica.jpg)
